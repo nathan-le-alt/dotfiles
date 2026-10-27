@@ -5,7 +5,6 @@ rem Config shortcuts
 doskey edcmd=vim "%LOCALAPPDATA%\clink\clink_start.cmd"
 doskey recmd=call "%LOCALAPPDATA%\clink\clink_start.cmd"
 doskey edhistory=vim "%LOCALAPPDATA%\clink\clink_history"
-doskey python=python3 $*
 
 rem User profile (~)
 doskey ~ = %USERPROFILE%
