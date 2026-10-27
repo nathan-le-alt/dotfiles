@@ -1,28 +1,27 @@
 " Set leader key
 let mapleader = " "
 
-""" ===== General settings =====
+" Settings ---
+set encoding=UTF-8
 syntax on            " enable syntax highlighting
-set number           " show line numbers
-" set relativenumber   " show relative line numbers (great for jumping)
-set mouse=a          " enable mouse support
+set number            " show line numbers
+" set relativenumber  " show relative line numbers (great for jumping)
+set mouse=a           " enable mouse support
 set cursorline        " highlight the current line
 set showcmd           " show partial command in the last line
 set ruler             " show cursor position
 " set spell spelllang=en_us
-set encoding=UTF-8
 set nocp              " disable vi compatibility mode
-set termguicolors     " enable true color support
+set termguicolors
 
-
-" set fileformat
+" Set fileformat
 if has('win32') || has('win64')
   set fileformat=dos       " Default format for brand new files on Windows
 else
   set fileformat=unix      " Default format for brand new files on Unix/macOS
 endif
 
-" --- Indentation ---
+" Indentation 
 set tabstop=2        " number of visual spaces per tab
 set softtabstop=2    " number of spaces in tab when editing
 set shiftwidth=2     " number of spaces to use for autoindent
@@ -32,113 +31,111 @@ filetype plugin indent on
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
 set breakindent
 set linebreak
-" set showbreak=>\
+set showbreak=>\ 
 
-" --- Search and navigation ---
+" Search and navigation
 set hlsearch         " highlight search results
 set incsearch        " search as you type
 set ignorecase       " case insensitive search...
 set smartcase        " ...unless you use a capital letter
-set scrolloff=8       " keep 8 lines visible above and below cursor
+set scrolloff=6       " keep 6 lines visible above and below cursor
 
-" --- Performance and behavior ---
+" Performance and behavior
 set hidden           " allow background buffers
 set nobackup         " don't create backup files
 set noswapfile       " don't create swap files
-"set clipboard=unnamedplus    " use the system clipboard
+
 if has('unnamedplus')
   set clipboard=unnamedplus
 else
   set clipboard=unnamed
 endif
+" End Settings +++
 
-" --- Splitting ---
-set splitbelow          " split below when splitting horizontal
-set splitright          " split to the right when splitting vertical
 
-""" ===== Customization =====
-
+" Customization ---
 augroup CustomHighlights
   autocmd!
 
-  " --- Transparent Backgrounds & Line Numbers ---
+  " Transparent Backgrounds & Line Numbers
   autocmd ColorScheme * highlight Normal          guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight NonText         guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight EndOfBuffer     guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight SignColumn      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight LineNr          guibg=NONE ctermbg=NONE
-  autocmd ColorScheme * highlight CursorLineNr    guibg=NONE ctermbg=NONE guifg=#ff5577 gui=bold
-  autocmd ColorScheme * highlight CursorLine      guibg=NONE ctermbg=NONE
+  " autocmd ColorScheme * highlight CursorLineNr    guibg=NONE ctermbg=NONE guifg=#ff5577 gui=bold
+  " autocmd ColorScheme * highlight CursorLine      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight Folded          guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight FoldColumn      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight VertSplit       guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight StatusLine      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight StatusLineNC    guibg=NONE ctermbg=NONE
 
-  " --- Cursor Line & Visual Selection ---
+  " Cursor Line & Visual Selection
   " autocmd ColorScheme * highlight CursorLine      guifg=NONE    guibg=#073642 gui=NONE
   " autocmd ColorScheme * highlight Visual          guifg=#d33682 guibg=#073642 gui=NONE
 
-  " --- Sign Column Icons (Gutter Indicators) ---
+  " Sign Column Icons (Gutter Indicators)
   autocmd ColorScheme * highlight CocErrorSign   guifg=#F44747 guibg=NONE gui=bold
   autocmd ColorScheme * highlight CocWarningSign guifg=#CCA700 guibg=NONE gui=bold
   autocmd ColorScheme * highlight CocInfoSign    guifg=#3794FF guibg=NONE gui=bold
   autocmd ColorScheme * highlight CocHintSign    guifg=#B5CEA8 guibg=NONE gui=bold
 
-  " --- Inline Virtual Text (Diagnostics) ---
+  " Inline Virtual Text (Diagnostics)
   autocmd ColorScheme * highlight CocErrorVirtualText   guifg=#F44747 guibg=#2D1A1A gui=bold
   autocmd ColorScheme * highlight CocWarningVirtualText guifg=#CCA700 guibg=#2D2912 gui=bold
   autocmd ColorScheme * highlight CocInfoVirtualText    guifg=#3794FF guibg=#122438 gui=bold
   autocmd ColorScheme * highlight CocHintVirtualText    guifg=#B5CEA8 guibg=#1A261A gui=bold
 
-  " --- Floating Windows & Popups ---
+  " Floating Windows & Popups
   autocmd ColorScheme * highlight CocFloating          guifg=#D4D4D4 guibg=#252526
   autocmd ColorScheme * highlight FloatBorder          guifg=#454545 guibg=#252526
   autocmd ColorScheme * highlight CocFloatBorder       guifg=#454545 guibg=#252526
   autocmd ColorScheme * highlight CocFloatDividingLine guifg=#454545 guibg=#252526
 
-  " --- Diagnostics Inside Floating Popups ---
+  " Diagnostics Inside Floating Popups
   autocmd ColorScheme * highlight CocErrorFloat   guifg=#F44747 guibg=#252526 gui=bold
   autocmd ColorScheme * highlight CocWarningFloat guifg=#CCA700 guibg=#252526 gui=bold
   autocmd ColorScheme * highlight CocInfoFloat    guifg=#3794FF guibg=#252526 gui=bold
   autocmd ColorScheme * highlight CocHintFloat    guifg=#B5CEA8 guibg=#252526 gui=bold
 
-  " --- Completion Menu Selection ---
+  " Completion Menu Selection
   autocmd ColorScheme * highlight CocMenuSel      guifg=#FFFFFF guibg=#04395E gui=bold
 augroup END
+" End Customization +++
 
-" ===== Keybindings =====
 
-" --- Helper ---
-nnoremap ? :map<CR>
+" Keybindings ---
+" Helper
+" nnoremap ? :map<CR>
 
-" --- Select entire file ---
-nnoremap gG ggVG 
+" Select entire file
+nnoremap gG ggVG
 
-" --- Copy to clipboard ---
+" Copy to clipboard
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 
-" --- Stop highlight when pressing enter ---
+" Stop highlight when pressing enter
 nnoremap <silent> <cr> :nohlsearch<cr><cr>
 
-" --- Cycle between buffers ---
+" Cycle between buffers
 nnoremap <silent><s-h> :bprevious<cr>
 nnoremap <silent><s-l> :bnext<cr>
 
-" --- Cycle between windows ---
+" Cycle between windows
 nnoremap <silent><c-h> <c-w>h
 nnoremap <silent><c-j> <c-w>j
 nnoremap <silent><c-k> <c-w>k
 nnoremap <silent><c-l> <c-w>l
 
-" --- Resizing windows ---
+" Resizing windows
 nnoremap <silent><c-up> :resize +2<cr>
 nnoremap <silent><c-down> :resize -2<cr>
 nnoremap <silent><c-left> :vertical resize -2<cr>
 nnoremap <silent><c-right> :vertical resize +2<cr>
 
-" --- Scrolling documentation (CoC floating windows) ---
+" Scrolling documentation (CoC floating windows)
 nnoremap <silent><nowait><expr> <c-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<c-f>"
 nnoremap <silent><nowait><expr> <c-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<c-b>"
 inoremap <silent><nowait><expr> <c-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<right>"
@@ -153,16 +150,16 @@ inoremap <silent><nowait><expr> <c-u> coc#float#has_scroll() ? "\<c-r>=coc#float
 vnoremap <silent><nowait><expr> <c-d> coc#float#has_scroll() ? coc#float#scroll(1, 1) : "\<c-d>"
 vnoremap <silent><nowait><expr> <c-u> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<c-u>"
 
-" --- Close a buffer ---
+" Close a buffer
 nnoremap <leader>w :bd<cr>
 
-" --- Splitting buffers ---
+" Splitting buffers
 nnoremap sh :split<cr>
 nnoremap sv :vsplit<cr>
 nnoremap sc :close<cr>
 nnoremap so :only<cr>
 
-" --- Remap delete to black hole register (delete without yanking) ---
+" Remap delete to black hole register (delete without yanking)
 nnoremap d "_d
 nnoremap c "_c
 nnoremap x "_x
@@ -170,18 +167,20 @@ vnoremap d "_d
 vnoremap c "_c
 vnoremap x "_x
 
-" --- Cutting (yank to default register) ---
+" Cutting (yank to default register)
 nnoremap <leader>d d
 vnoremap <leader>d d
 nnoremap <leader>dd dd
 
-" --- Pasting (paste over selection without overwriting register) ---
+" Pasting (paste over selection without overwriting register)
 vnoremap p "_dp
+" End Keybindings +++
 
-" ===== Code Runner =====
+
+" CodeRunner ---
 function! Runcode() abort
   if &buftype ==# 'terminal'
-    echo 'Switch to your source file first!'
+    echo 'Switch to the source file first!'
     return
   endif
   write
@@ -193,7 +192,12 @@ function! Runcode() abort
   if l:filetype ==# 'python'
     let l:cmd = ['python3', l:file]
   elseif l:filetype ==# 'c'
-    let l:cmd = ['bash', '-c', 'clang "$1" -o "$2" -Wall -Wextra && "$2"', 'bash', l:file, l:output]
+    if has('win32') || has('win64')
+      let l:vcvars = '"C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Auxiliary\Build\vcvars64.bat"'
+      let l:cmd = 'cmd.exe /c "' . l:vcvars . ' >nul && clang "' . l:file . '" -o "' . l:output . '.exe" -Wall -Wextra && "' . l:output . '.exe"'
+    else
+      let l:cmd = ['bash', '-c', 'clang "$1" -o "$2" -Wall -Wextra && "$2"', 'bash', l:file, l:output]
+    endif
   elseif l:filetype ==# 'javascript'
     let l:cmd = ['node', l:file]
   else
@@ -208,14 +212,15 @@ function! Runcode() abort
   endfor
 
   botright split | resize 15
-  call term_start(l:cmd, {'curwin': 1})
+  call term_start(l:cmd, {'curwin': 1, 'term_name': 'Output:D'})
   " call win_gotoid(l:curr_win) move the cursor to this buffer
 endfunction
 
 nnoremap <silent> <leader>\ :call Runcode()<cr>
+" End CodeRunner+++
 
 
-""" ===== Vim plugins =====
+" Vim Plugins ---
 " Dynamic plugin directory based on the operating system
 if has("win32") || has("win64")
   call plug#begin('~/vimfiles/plugged')
@@ -223,40 +228,49 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
-" --- Appearance ---
+" Colorschemes
 Plug 'tomasiser/vim-code-dark'
-" Plug 'morhetz/gruvbox'
-" Plug 'lifepillar/vim-solarized8'
-" Plug 'cocopon/iceberg.vim'
 
-" --- Appearance ---
+" Appearance
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 Plug 'ryanoasis/vim-devicons'
 
-" --- Code helper ---
+" Code helper
 Plug 'honza/vim-snippets'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 "Plug 'heavenshell/vim-jsdoc', {'do': 'make install'} Unix only
 Plug 'preservim/nerdtree'
 
-" --- Language server ---
+" Language server
+let g:polyglot_disabled = [] 
+Plug 'sheerun/vim-polyglot'  
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" --- Formatter ---
+" Formatter
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
-" --- Git plugins ---
+" Git plugins
 Plug 'airblade/vim-gitgutter'
 call plug#end()
 
-" --- Set colorscheme ---
+" Set colorscheme
 set background=dark
 colorscheme codedark
+" End Vim Plugins +++
 
-""" ===== Plugin config files =====
+" Vim Plugins Configurations ---
+let g:vim_json_conceal = 0
+let g:markdown_conceal = 0
+let g:markdown_conceal_string = 0
+
+let g:python_highlight_all = 1
+" End Vim Plugins Configurations +++
+
+
+" Load Plugins Configurations ---
 
 " Vim configuration for Git edit & Detect the correct config folder
 if has("win32") || has("win64")
@@ -272,14 +286,11 @@ let s:config_files = [
   \ 'gitgutter.vim',
   \ 'indentLine-config.vim',
   \ 'coc-config.vim',
-  \ 'ale-config.vim',
   \ 'coc-snippet.vim',
   \ 'coc-diagnostics.vim',
   \ 'coc-format.vim',
-  \ 'jsdoc.vim',
   \ 'nerdtree.vim',
   \ 'coc-extensions.vim',
-  \ 'vim-minimap.vim'
   \ ]
 
 for s:file in s:config_files
@@ -288,13 +299,15 @@ for s:file in s:config_files
     execute 'source' fnameescape(s:path)
   endif
 endfor
+" End Load Plugins Configurations +++
 
-""" ===== Backup =====
 
+" Backup ---
 " Automatically backup .vimrc to ~/.vimrc.bak
 augroup VimrcAutoBackup
   autocmd!
   autocmd BufWritePost *vimrc silent call writefile(readfile(expand('<afile>:p'), 'b'), expand('~/_vimrc.bak'), 'b')
 augroup END
+" End Backup +++
 
-set noshowmode        " hide mode text 
+set noshowmode        " hide mode text
