@@ -7,7 +7,7 @@ syntax on
 set number        
 " set relativenumber  
 set mouse=a        
-" set cursorline      
+set cursorline      
 set showcmd          
 set ruler             
 " set spell spelllang=en_us
