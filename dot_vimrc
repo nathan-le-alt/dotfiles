@@ -6,7 +6,7 @@ set encoding=UTF-8
 syntax on        
 set number        
 " set relativenumber  
-set mouse=a        
+" set mouse=a        
 set cursorline      
 set showcmd          
 set ruler             
