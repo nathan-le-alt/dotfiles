@@ -6,7 +6,7 @@ set encoding=UTF-8
 syntax on        
 set number        
 " set relativenumber  
-" set mouse=a        
+set mouse=
 set cursorline      
 set showcmd          
 set ruler             
@@ -196,7 +196,7 @@ function! Runcode() abort
   elseif l:filetype ==# 'c'
     if has('win32') || has('win64')
       let l:vcvars = '"C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Auxiliary\Build\vcvars64.bat"'
-      let l:cmd = 'cmd.exe /c "' . l:vcvars . ' >nul && clang "' . l:file . '" -o "' . l:output . '.exe" -Wall -Wextra && "' . l:output . '.exe"'
+      let l:cmd = 'cmd.exe /c "' . l:vcvars . ' >nul && clang "' . l:file . '" -o "' . l:output . '.exe" && "' . l:output . '.exe"'
     else
       let l:cmd = ['bash', '-c', 'clang "$1" -o "$2" -Wall -Wextra && "$2"', 'bash', l:file, l:output]
     endif
