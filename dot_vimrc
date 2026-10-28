@@ -306,10 +306,10 @@ endfor
 
 " Backup ---
 " Automatically backup .vimrc to ~/.vimrc.bak
-augroup VimrcAutoBackup
-  autocmd!
-  autocmd BufWritePost *vimrc silent call writefile(readfile(expand('<afile>:p'), 'b'), expand('~/_vimrc.bak'), 'b')
-augroup END
+" augroup VimrcAutoBackup
+"   autocmd!
+"   autocmd BufWritePost *vimrc silent call writefile(readfile(expand('<afile>:p'), 'b'), expand('~/_vimrc.bak'), 'b')
+" augroup END
 " End Backup +++
 
 set noshowmode        " hide mode text
