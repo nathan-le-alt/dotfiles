@@ -3,29 +3,30 @@ let mapleader = " "
 
 " Settings ---
 set encoding=UTF-8
-syntax on            " enable syntax highlighting
-set number            " show line numbers
-" set relativenumber  " show relative line numbers (great for jumping)
-set mouse=a           " enable mouse support
-set cursorline        " highlight the current line
-set showcmd           " show partial command in the last line
-set ruler             " show cursor position
+syntax on        
+set number        
+" set relativenumber  
+set mouse=a        
+" set cursorline      
+set showcmd          
+set ruler             
 " set spell spelllang=en_us
-set nocp              " disable vi compatibility mode
+set nocp             
+set signcolumn=auto
 set termguicolors
 
 " Set fileformat
 if has('win32') || has('win64')
-  set fileformat=dos       " Default format for brand new files on Windows
+  set fileformat=dos 
 else
-  set fileformat=unix      " Default format for brand new files on Unix/macOS
+  set fileformat=unix
 endif
 
 " Indentation 
-set tabstop=2        " number of visual spaces per tab
-set softtabstop=2    " number of spaces in tab when editing
-set shiftwidth=2     " number of spaces to use for autoindent
-" set noexpandtab      " use tabs
+set tabstop=2        
+set softtabstop=2    
+set shiftwidth=2    
+" set noexpandtab  
 set expandtab         " convert tabs to spaces
 filetype plugin indent on
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
@@ -34,16 +35,16 @@ set linebreak
 set showbreak=>\ 
 
 " Search and navigation
-set hlsearch         " highlight search results
-set incsearch        " search as you type
-set ignorecase       " case insensitive search...
-set smartcase        " ...unless you use a capital letter
-set scrolloff=6       " keep 6 lines visible above and below cursor
+set hlsearch      
+set incsearch   
+set ignorecase   
+set smartcase  
+set scrolloff=6
 
 " Performance and behavior
-set hidden           " allow background buffers
-set nobackup         " don't create backup files
-set noswapfile       " don't create swap files
+set hidden    
+" set nobackup 
+" set noswapfile
 
 if has('unnamedplus')
   set clipboard=unnamedplus
@@ -63,13 +64,14 @@ augroup CustomHighlights
   autocmd ColorScheme * highlight EndOfBuffer     guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight SignColumn      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight LineNr          guibg=NONE ctermbg=NONE
-  " autocmd ColorScheme * highlight CursorLineNr    guibg=NONE ctermbg=NONE guifg=#ff5577 gui=bold
-  " autocmd ColorScheme * highlight CursorLine      guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight CursorLineNr    guibg=NONE ctermbg=NONE guifg=#ff5577 gui=bold
+  autocmd ColorScheme * highlight CursorLine      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight Folded          guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight FoldColumn      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight VertSplit       guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight StatusLine      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight StatusLineNC    guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight SignColumn      guibg=NONE ctermbg=NONE
 
   " Cursor Line & Visual Selection
   " autocmd ColorScheme * highlight CursorLine      guifg=NONE    guibg=#073642 gui=NONE
