@@ -1,0 +1,37 @@
+" GUI settings, loaded after _vimrc
+if has('win32') || has('win64')
+  set guifont=0xProto_Nerd_Font_Mono:h10
+else
+  set guifont=0xProto\ Nerd\ Font\ Mono\ 10
+endif
+
+set encoding=utf-8
+
+" Clean up the GUI interface
+set guioptions-=m    " Remove the top menu bar
+set guioptions-=T    " Remove the top toolbar
+set guioptions-=r    " Remove the right-hand scrollbar
+set guioptions-=L    " Remove the left-hand scrollbar
+
+if has('win32') || has('win64')
+  set renderoptions=type:directx
+endif
+
+" Window settings
+set lines=44 columns=160    " Set the default startup window size (Rows x Columns)
+set linespace=0
+
+" Enable the dark theme layout explicitly for the GUI
+augroup GuiBackground
+  autocmd!
+  autocmd ColorScheme * highlight Normal guibg=#1E1E1E
+  autocmd ColorScheme * highlight Terminal guibg=#1E1E1E guifg=#D4D4D4
+augroup END
+set background=dark
+colorscheme codedark
+
+
+
+
+
+
