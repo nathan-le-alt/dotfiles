@@ -1,6 +1,6 @@
 " GUI settings, loaded after _vimrc
 if has('win32') || has('win64')
-  set guifont=0xProto_Nerd_Font_Mono:h10
+  set guifont=0xProto_Nerd_Font_Mono:h10.5
 else
   set guifont=0xProto\ Nerd\ Font\ Mono\ 10
 endif
@@ -18,7 +18,7 @@ if has('win32') || has('win64')
 endif
 
 " Window settings
-set lines=44 columns=160    " Set the default startup window size (Rows x Columns)
+set lines=44 columns=150    " Set the default startup window size (Rows x Columns)
 set linespace=0
 
 " Enable the dark theme layout explicitly for the GUI
