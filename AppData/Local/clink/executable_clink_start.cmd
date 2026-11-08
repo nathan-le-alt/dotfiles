@@ -2,10 +2,10 @@
 rem Aliases and functions. Clink runs this file at every cmd start.
 
 rem Config shortcuts
-doskey edcmd=vim "%LOCALAPPDATA%\clink\clink_start.cmd"
-doskey edvim=vim "%USERPROFILE%\_vimrc"
+doskey edcmd=gvim "%LOCALAPPDATA%\clink\clink_start.cmd"
+doskey edvim=gvim "%USERPROFILE%\_vimrc"
 doskey recmd=call "%LOCALAPPDATA%\clink\clink_start.cmd"
-doskey edhistory=vim "%LOCALAPPDATA%\clink\clink_history"
+doskey edhistory=gvim "%LOCALAPPDATA%\clink\clink_history"
 
 rem User profile (~)
 doskey ~ = %USERPROFILE%
