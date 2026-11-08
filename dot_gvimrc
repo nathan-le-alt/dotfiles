@@ -18,20 +18,25 @@ if has('win32') || has('win64')
 endif
 
 " Window settings
-set lines=44 columns=150    " Set the default startup window size (Rows x Columns)
-set linespace=0
+set lines=47 columns=135    " Set the default startup window size (Rows x Columns)
+set linespace=-3
 
 " Enable the dark theme layout explicitly for the GUI
 augroup GuiBackground
   autocmd!
-  autocmd ColorScheme * highlight Normal guibg=#1E1E1E
-  autocmd ColorScheme * highlight Terminal guibg=#1E1E1E guifg=#D4D4D4
+  autocmd ColorScheme * highlight Normal guibg=#1E1E1E "guifg=#f5f5f5"1E1E1E for codedark
+  autocmd ColorScheme * highlight Terminal guibg=#1E1E1E "guifg=#f5f5f5
 augroup END
+
+" Normal/Visual/Command mode
+set guicursor=n-v-c:block
+
+" Insert mode
+set guicursor+=i-ci-ve:ver20
+
+" Replace mode
+set guicursor+=r-cr:hor20
+
 set background=dark
-colorscheme codedark
-
-
-
-
-
+colorscheme jellybeans
 

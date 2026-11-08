@@ -2,6 +2,8 @@
 let mapleader = " "
 
 " Settings ---
+set shortmess-=l
+set noshowmode        " hide mode text
 set encoding=UTF-8
 syntax on        
 set number        
@@ -9,18 +11,9 @@ set number
 set mouse=
 set cursorline      
 set showcmd          
-set ruler             
 " set spell spelllang=en_us
-set nocp             
 set signcolumn=auto
 set termguicolors
-
-" Set fileformat
-if has('win32') || has('win64')
-  set fileformat=dos 
-else
-  set fileformat=unix
-endif
 
 " Indentation 
 set tabstop=2        
@@ -30,6 +23,7 @@ set shiftwidth=2
 set expandtab         " convert tabs to spaces
 filetype plugin indent on
 autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType make,go setlocal noexpandtab
 set breakindent
 set linebreak
 set showbreak=>\ 
@@ -39,11 +33,12 @@ set hlsearch
 set incsearch   
 set ignorecase   
 set smartcase  
-set scrolloff=6
+set scrolloff=8
 
 " Performance and behavior
 set hidden    
-" set nobackup 
+set updatetime=500
+set nobackup 
 " set noswapfile
 
 if has('unnamedplus')
@@ -71,7 +66,6 @@ augroup CustomHighlights
   autocmd ColorScheme * highlight VertSplit       guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight StatusLine      guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight StatusLineNC    guibg=NONE ctermbg=NONE
-  autocmd ColorScheme * highlight SignColumn      guibg=NONE ctermbg=NONE
 
   " Sign Column Icons (Gutter Indicators)
   autocmd ColorScheme * highlight CocErrorSign   guifg=#F44747 guibg=NONE gui=bold
@@ -104,8 +98,6 @@ augroup END
 
 
 " Keybindings ---
-" Helper
-" nnoremap ? :map<CR>
 
 " Select entire file
 nnoremap gG ggVG
@@ -118,8 +110,16 @@ vnoremap <leader>y "+y
 nnoremap <silent> <cr> :nohlsearch<cr><cr>
 
 " Cycle between buffers
-nnoremap <silent><s-h> :bprevious<cr>
-nnoremap <silent><s-l> :bnext<cr>
+function! SafeBufSwitch(cmd) abort
+  if &buftype ==# 'terminal'
+    echo 'switch to the source file first!'
+    return
+  endif
+  execute a:cmd
+endfunction
+
+nnoremap <silent><s-h> :call SafeBufSwitch('bprevious')<cr>
+nnoremap <silent><s-l> :call SafeBufSwitch('bnext')<cr>
 
 " Cycle between windows
 nnoremap <silent><c-h> <c-w>h
@@ -171,14 +171,14 @@ vnoremap <leader>d d
 nnoremap <leader>dd dd
 
 " Pasting (paste over selection without overwriting register)
-vnoremap p "_dp
+xnoremap p P
 " End Keybindings +++
 
 
 " CodeRunner ---
 function! Runcode() abort
   if &buftype ==# 'terminal'
-    echo 'Switch to the source file first!'
+    echo 'switch to the source file first!'
     return
   endif
   write
@@ -210,8 +210,10 @@ function! Runcode() abort
     endif
   elseif l:filetype ==# 'javascript'
     let l:cmd = ['node', l:file]
+  elseif l:filetype ==# 'java'
+    let l:cmd = ['java', l:file]
   else
-    echo 'No run command set for filetype: ' . l:filetype
+    echo 'no run command set for filetype: ' . l:filetype
     return
   endif
 
@@ -240,6 +242,7 @@ endif
 
 " Colorschemes
 Plug 'tomasiser/vim-code-dark'
+Plug 'nanotech/jellybeans.vim'
 
 " Appearance
 Plug 'vim-airline/vim-airline'
@@ -254,8 +257,6 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'preservim/nerdtree'
 
 " Language server
-let g:polyglot_disabled = [] 
-Plug 'sheerun/vim-polyglot'  
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Formatter
@@ -268,8 +269,7 @@ call plug#end()
 
 " Set colorscheme
 set background=dark
-" colorscheme codedark
-colorscheme desert
+colorscheme jellybeans
 " End Vim Plugins +++
 
 " Vim Plugins Configurations ---
@@ -285,12 +285,12 @@ let g:python_highlight_all = 1
 
 " Vim configuration for Git edit & Detect the correct config folder
 if has("win32") || has("win64")
-  let folder = 'vimfiles'
+  let s:folder = 'vimfiles'
 else
-  let folder = '.vim'
+  let s:folder = '.vim'
 endif
 
-let s:config_dir = expand('~/' . folder . '/vim-config')
+let s:config_dir = expand('~/' . s:folder . '/vim-config')
 
 let s:config_files = [
       \ 'vim-airline-config.vim',
@@ -321,4 +321,3 @@ endfor
 " augroup END
 " End Backup +++
 
-set noshowmode        " hide mode text
