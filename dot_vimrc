@@ -73,10 +73,6 @@ augroup CustomHighlights
   autocmd ColorScheme * highlight StatusLineNC    guibg=NONE ctermbg=NONE
   autocmd ColorScheme * highlight SignColumn      guibg=NONE ctermbg=NONE
 
-  " Cursor Line & Visual Selection
-  " autocmd ColorScheme * highlight CursorLine      guifg=NONE    guibg=#073642 gui=NONE
-  " autocmd ColorScheme * highlight Visual          guifg=#d33682 guibg=#073642 gui=NONE
-
   " Sign Column Icons (Gutter Indicators)
   autocmd ColorScheme * highlight CocErrorSign   guifg=#F44747 guibg=NONE gui=bold
   autocmd ColorScheme * highlight CocWarningSign guifg=#CCA700 guibg=NONE gui=bold
@@ -153,7 +149,7 @@ vnoremap <silent><nowait><expr> <c-d> coc#float#has_scroll() ? coc#float#scroll(
 vnoremap <silent><nowait><expr> <c-u> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "\<c-u>"
 
 " Close a buffer
-nnoremap <leader>w :bd<cr>
+nnoremap <silent><leader>w :bd<cr>
 
 " Splitting buffers
 nnoremap sh :split<cr>
@@ -192,13 +188,25 @@ function! Runcode() abort
   let l:output = expand('%:p:r')
 
   if l:filetype ==# 'python'
-    let l:cmd = ['python3', l:file]
+    let l:venv_dir = getcwd() . '/.venv'
+    let l:venv_python = has('win32') || has('win64')
+          \ ? l:venv_dir . '/Scripts/python.exe'
+          \ : l:venv_dir . '/bin/python'
+    let l:fallback = has('win32') || has('win64') ? 'python' : 'python3'
+
+    if isdirectory(getcwd() . '/.venv')
+          \ && !empty($VIRTUAL_ENV)
+          \ && fnamemodify($VIRTUAL_ENV, ':p') ==? fnamemodify(l:venv_dir, ':p')
+      let l:cmd = [l:venv_python, l:file]
+    else
+      let l:cmd = [l:fallback, l:file]
+    endif
   elseif l:filetype ==# 'c'
     if has('win32') || has('win64')
       let l:vcvars = '"C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Auxiliary\Build\vcvars64.bat"'
       let l:cmd = 'cmd.exe /c "' . l:vcvars . ' >nul && clang "' . l:file . '" -o "' . l:output . '.exe" && "' . l:output . '.exe"'
     else
-      let l:cmd = ['bash', '-c', 'clang "$1" -o "$2" -Wall -Wextra && "$2"', 'bash', l:file, l:output]
+      let l:cmd = ['sh', '-c', 'clang "$1" -o "$2" && "$2"', 'sh', l:file, l:output] "replace bash with sh
     endif
   elseif l:filetype ==# 'javascript'
     let l:cmd = ['node', l:file]
@@ -260,7 +268,8 @@ call plug#end()
 
 " Set colorscheme
 set background=dark
-colorscheme codedark
+" colorscheme codedark
+colorscheme desert
 " End Vim Plugins +++
 
 " Vim Plugins Configurations ---
@@ -284,16 +293,16 @@ endif
 let s:config_dir = expand('~/' . folder . '/vim-config')
 
 let s:config_files = [
-  \ 'vim-airline-config.vim',
-  \ 'gitgutter.vim',
-  \ 'indentLine-config.vim',
-  \ 'coc-config.vim',
-  \ 'coc-snippet.vim',
-  \ 'coc-diagnostics.vim',
-  \ 'coc-format.vim',
-  \ 'nerdtree.vim',
-  \ 'coc-extensions.vim',
-  \ ]
+      \ 'vim-airline-config.vim',
+      \ 'gitgutter.vim',
+      \ 'indentLine-config.vim',
+      \ 'coc-config.vim',
+      \ 'coc-snippet.vim',
+      \ 'coc-diagnostics.vim',
+      \ 'coc-format.vim',
+      \ 'nerdtree.vim',
+      \ 'coc-extensions.vim',
+      \ ]
 
 for s:file in s:config_files
   let s:path = s:config_dir . '/' . s:file
