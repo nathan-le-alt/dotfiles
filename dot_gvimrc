@@ -22,8 +22,8 @@ if has("gui_running")
   if !empty($LAPTOP)
     autocmd GUIEnter * simalt ~x
   else
-    set lines=47 columns=135
-    winpos 200 100
+    set lines=47 columns=140
+    winpos 736 75
   endif
 endif
 set linespace=-3
