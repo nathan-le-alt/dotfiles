@@ -18,7 +18,13 @@ if has('win32') || has('win64')
 endif
 
 " Window settings
-set lines=47 columns=135    " Set the default startup window size (Rows x Columns)
+if has("gui_running")
+  if !empty($LAPTOP)
+    autocmd GUIEnter * simalt ~x
+  else
+    set lines=47 columns=135
+  endif
+endif
 set linespace=-3
 
 " Enable the dark theme layout explicitly for the GUI
