@@ -13,7 +13,6 @@ Control-l: "\C-e\C-ucls\C-m"
 "\C-r": "luafunc:fzf_history"
 "\M-c": "luafunc:fzf_directory"
 "\M-b": "luafunc:fzf_bindings"
-"\t": "luafunc:fzf_complete_force"
 "\e[27;5;32~": "luafunc:fzf_complete_force"
 
 set echo-control-characters off
