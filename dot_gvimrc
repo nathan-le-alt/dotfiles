@@ -23,6 +23,7 @@ if has("gui_running")
     autocmd GUIEnter * simalt ~x
   else
     set lines=47 columns=135
+    winpos 200 100
   endif
 endif
 set linespace=-3
