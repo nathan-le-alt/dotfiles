@@ -88,7 +88,6 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-completions
-  sudo
   history-substring-search
 )
 
@@ -144,6 +143,9 @@ alias supdate="sudo apt update && sudo apt upgrade && sudo apt dist-upgrade"
 alias ssupdate="sudo apt full-upgrade && sudo apt autoremove --purge && sudo apt clean"
 alias sintall="sudo apt install"
 alias sremove="sudo apt remove"
+
+# Proxychain
+alias pc="proxychains4"
 
 # Task Manager
 alias top="btop"
