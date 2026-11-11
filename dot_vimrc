@@ -178,7 +178,7 @@ xnoremap p P
 " CodeRunner ---
 function! Runcode() abort
   if &buftype ==# 'terminal'
-    echo 'switch to the source file first!'
+    echo '[code runner] Switch to the source file first!'
     return
   endif
   write
@@ -213,7 +213,7 @@ function! Runcode() abort
   elseif l:filetype ==# 'java'
     let l:cmd = ['java', l:file]
   else
-    echo 'no run command set for filetype: ' . l:filetype
+    echo '[code runner] No run command set for filetype: ' . l:filetype
     return
   endif
 
@@ -312,13 +312,3 @@ for s:file in s:config_files
   endif
 endfor
 " End Load Plugins Configurations +++
-
-
-" Backup ---
-" Automatically backup .vimrc to ~/.vimrc.bak
-" augroup VimrcAutoBackup
-"   autocmd!
-"   autocmd BufWritePost *vimrc silent call writefile(readfile(expand('<afile>:p'), 'b'), expand('~/_vimrc.bak'), 'b')
-" augroup END
-" End Backup +++
-
