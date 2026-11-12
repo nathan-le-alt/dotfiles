@@ -12,6 +12,32 @@ export PATH="$PATH:$GOPATH/bin"
 # --- [ HOMEBREW ] ---
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# --- [ FZF CONFIGURATION ] ---
+export FZF_DEFAULT_OPTS="
+  --info=inline-right 
+  --scroll-off=3 
+  --highlight-line 
+  --pointer='▌' 
+  --marker='┃' 
+  --prompt='> ' 
+  --height=60%
+  --cycle 
+  --layout=reverse 
+  --border 
+  --bind tab:down,shift-tab:up,ctrl-j:down,ctrl-k:up,ctrl-d:half-page-down,ctrl-u:half-page-up,alt-p:toggle-preview,ctrl-space:toggle,alt-k:preview-up,alt-j:preview-down,alt-u:preview-half-page-up,alt-d:preview-half-page-down,alt-g:preview-top,alt-G:preview-bottom
+  "
+
+export FZF_CTRL_T_OPTS="--preview '$HOME/.local/bin/fzf-preview.sh {}' --preview-window=right:50%:wrap"
+export FZF_ALT_C_OPTS="--preview '$HOME/.local/bin/fzf-preview.sh {}' --preview-window=right:50%:wrap"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down:3:wrap"
+
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+zstyle ':fzf-tab:*' continuous-trigger '/'
+# zstyle ':fzf-tab:*' fzf-flags --height=60% --preview-window=right:50%:wrap
+zstyle ':fzf-tab:complete:*:*' fzf-preview '$HOME/.local/bin/fzf-preview.sh ${(Q)realpath}'
+
+source <(fzf --zsh)
+
 # --- [ OH MY ZSH CONFIGURATION ] ---
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
