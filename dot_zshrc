@@ -116,6 +116,9 @@ plugins=(
   zsh-syntax-highlighting
   zsh-completions
   history-substring-search
+  copyfile
+  copypath
+  copybuffer
 )
 
 source $ZSH/oh-my-zsh.sh
