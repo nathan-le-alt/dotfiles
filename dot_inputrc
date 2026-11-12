@@ -1,8 +1,5 @@
-# Ctrl+O copies the current line (copybuffer plugin)
-"\C-o": clink-copy-line
-
-# Ctrl+X then P copies the current directory (copypath plugin)
-"\C-xp": clink-copy-cwd
+Ctrl+X then O copies the current (copybuffer plugin)
+"\C-o": "luafunc:copy_current_buffer"
 
 # Clear current typing and clear screen in Clink
 Control-l: "\C-e\C-ucls\C-m"
