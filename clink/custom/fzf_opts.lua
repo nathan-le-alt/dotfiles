@@ -13,6 +13,6 @@ os.setenv("FZF_DEFAULT_OPTS", table.concat({
 }, " "))
 
 os.setenv("FZF_CTRL_T_OPTS", [[--preview "fzf-preview.cmd {}" --preview-window=right:50%:wrap:border-rounded]])
-os.setenv("FZF_ALT_C_OPTS", [[--preview "eza -A --color=always {}"]])
+os.setenv("FZF_ALT_C_OPTS", [[--preview "fzf-preview.cmd {}" --preview-window=right:50%:wrap:border-rounded]])
 os.setenv("FZF_CTRL_R_OPTS", [[--preview "echo {}" --preview-window=down:3:wrap:border-rounded]])
 os.setenv("FZF_COMPLETION_OPTS", [[--preview "fzf-preview.cmd {}" --preview-window=right:50%:wrap:border-rounded]])
