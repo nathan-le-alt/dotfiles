@@ -53,6 +53,7 @@ fetch_status = true
 [[blocks]]
 type = 'prompt'
 alignment = 'right'
+overflow = 'break'
 
 [[blocks.segments]]
 type = 'python'
