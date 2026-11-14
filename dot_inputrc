@@ -1,4 +1,4 @@
-Ctrl+X then O copies the current (copybuffer plugin)
+#Ctrl+X then O copies the current (copybuffer plugin)
 "\C-o": "luafunc:copy_current_buffer"
 
 # Clear current typing and clear screen in Clink
