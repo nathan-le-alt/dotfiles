@@ -90,7 +90,7 @@ type = 'text'
 style = 'plain'
 background = 'transparent'
 foreground_templates = ['{{ if gt .Code 0 }}#9a3b3b{{ else }}#90a959{{ end }}']
-template = '%'
+template = '$'
 
 [transient_prompt]
 background = 'transparent'
@@ -101,4 +101,4 @@ template = '>> '
 foreground = '#90a959'
 background = 'transparent'
 # multiline_keepprompt = true
-template = '%% '
+template = '$$ '
