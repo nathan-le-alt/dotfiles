@@ -1,0 +1,103 @@
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 4
+final_space = true
+
+[[blocks]]
+type = 'prompt'
+alignment = 'left'
+newline = true
+
+[[blocks.segments]]
+type = 'os'
+style = 'plain'
+background = 'transparent'
+template = '{{ .Icon }} '
+
+[[blocks.segments]]
+type = 'session'
+style = 'powerline'
+background = 'transparent'
+foreground = 'white'
+template = "{{ .UserName }}@"
+
+[[blocks.segments]]
+type = 'session'
+style = 'powerline'
+background = 'transparent'
+foreground = '#9a3b3b'
+template = "{{ .HostName }}"
+
+[[blocks.segments]]
+type = 'path'
+style = 'powerline'
+background = 'transparent'
+foreground = '#6a9fb5'
+template = "[{{ .Path }}]"
+
+[blocks.segments.options]
+style = 'full'
+
+[[blocks.segments]]
+type = 'git'
+style = 'plain'
+background = 'transparent'
+foreground = '#98C379'
+foreground_templates = ['{{ if or (.Working.Changed) (.Staging.Changed) }}#E5C07B{{ end }}']
+template = ' {{ .HEAD }} {{ if .Staging.Changed }}<#98C379>+{{ .Staging.String }}</>{{ end }}{{ if .Working.Changed }}<#E06C75>!{{ .Working.String }}</>{{ end }}<cyan>{{ if gt .Behind 0 }}v{{ .Behind }}{{ end }}{{ if gt .Ahead 0 }}^{{ .Ahead }}{{ end }}</>'
+
+[blocks.segments.options]
+branch_icon = ''
+commit_icon = '@'
+fetch_status = true
+
+[[blocks]]
+type = 'prompt'
+alignment = 'right'
+
+[[blocks.segments]]
+type = 'python'
+style = 'plain'
+background = 'transparent'
+foreground = '#FFE873'
+template = '{{ if .Venv }}Activate ({{ .Venv }}){{ end }}'
+
+[blocks.segments.options]
+display_mode = 'environment'
+fetch_virtual_env = true
+
+[[blocks]]
+type = 'rprompt'
+overflow = 'hidden'
+
+[[blocks.segments]]
+type = 'executiontime'
+style = 'plain'
+foreground = '#E5C07B'
+background = 'transparent'
+template = '{{ .FormattedMs }}'
+
+[blocks.segments.options]
+threshold = 100
+
+[[blocks]]
+type = 'prompt'
+alignment = 'left'
+newline = true
+
+[[blocks.segments]]
+type = 'text'
+style = 'plain'
+background = 'transparent'
+foreground_templates = ['{{ if gt .Code 0 }}#9a3b3b{{ else }}#90a959{{ end }}']
+template = '%'
+
+[transient_prompt]
+background = 'transparent'
+foreground_templates = ['{{ if gt .Code 0 }}#9a3b3b{{ else }}#90a959{{ end }}']
+template = '>> '
+
+[secondary_prompt]
+foreground = '#90a959'
+background = 'transparent'
+# multiline_keepprompt = true
+template = '%% '
