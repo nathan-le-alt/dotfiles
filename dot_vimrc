@@ -36,7 +36,7 @@ set smartcase
 set scrolloff=8
 
 " Performance and behavior
-set hidden    
+set nohidden    
 set updatetime=500
 set nobackup 
 " set noswapfile
@@ -112,7 +112,7 @@ nnoremap <silent> <cr> :nohlsearch<cr><cr>
 " Cycle between buffers
 function! SafeBufSwitch(cmd) abort
   if &buftype ==# 'terminal'
-    echo 'switch to the source file first!'
+    echo '[code runner] switch to the source file first!'
     return
   endif
   execute a:cmd
@@ -175,17 +175,55 @@ xnoremap p P
 " End Keybindings +++
 
 
-" CodeRunner ---
-function! Runcode() abort
-  if &buftype ==# 'terminal'
-    echo '[code runner] Switch to the source file first!'
+" Code Runner ---
+
+function! s:CloseOutput(src_buf, timer) abort
+  " Only act if the source buffer really is gone
+  if bufloaded(a:src_buf)
     return
   endif
-  write
-  let l:filetype = &filetype
-  let l:curr_win = win_getid()
-  let l:file = expand('%:p')
-  let l:output = expand('%:p:r')
+  for l:b in range(1, bufnr('$'))
+    if bufexists(l:b) && getbufvar(l:b, '&buftype') ==# 'terminal'
+      execute 'bwipeout! ' . l:b
+    endif
+  endfor
+  if get(g:, 'runcode_src_buf', -1) == a:src_buf
+    unlet g:runcode_src_buf
+  endif
+endfunction
+
+function! s:OnSourceUnload(src_buf) abort
+  " Defer the cleanup: Vim warns against wiping buffers inside BufUnload
+  call timer_start(0, function('s:CloseOutput', [a:src_buf]))
+endfunction
+
+function! Runcode() abort
+  if &buftype ==# 'terminal'
+    " Called from the output terminal: re-run the last source buffer
+    if !exists('g:runcode_src_buf') || !bufexists(g:runcode_src_buf)
+      echo '[code runner] No source file has been run yet!'
+      return
+    endif
+    let l:src_buf = g:runcode_src_buf
+    " Save the source file if it is visible in a window
+    let l:src_win = bufwinid(l:src_buf)
+    if l:src_win != -1
+      call win_execute(l:src_win, 'silent! write')
+    endif
+  else
+    " Called from a normal buffer: remember it as the source
+    write
+    let l:src_buf = bufnr('%')
+    let g:runcode_src_buf = l:src_buf
+    augroup RuncodeCleanup
+      execute 'autocmd! BufUnload <buffer=' . l:src_buf . '>'
+      execute 'autocmd BufUnload <buffer=' . l:src_buf . '> call s:OnSourceUnload(' . l:src_buf . ')'
+    augroup END
+  endif
+
+  let l:filetype = getbufvar(l:src_buf, '&filetype')
+  let l:file = fnamemodify(bufname(l:src_buf), ':p')
+  let l:output = fnamemodify(l:file, ':r')
 
   if l:filetype ==# 'python'
     let l:venv_dir = getcwd() . '/.venv'
@@ -223,8 +261,15 @@ function! Runcode() abort
     endif
   endfor
 
+
   botright split | resize 15
-  call term_start(l:cmd, {'curwin': 1, 'term_name': 'Output:D'})
+  if exists('+winfixbuf')
+    setlocal nowinfixbuf
+  endif
+  call term_start(l:cmd, {'curwin': 1, 'term_name': 'Output'})
+  if exists('+winfixbuf')
+    setlocal winfixbuf
+  endif
   " call win_gotoid(l:curr_win) move the cursor to this buffer
 endfunction
 
